@@ -24,10 +24,11 @@ function HomePage() {
                     handleSearch={handleSearch}
                 />
             </div>
-            <div>
-                <div>
+            <div className="lower-container">
+                <div className="">
                     <Word
                         date={"12-04-2022"}
+                        word={"Howdy"}
                         meaning={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n" +
                             "molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n" +
                             "numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n" +
@@ -36,12 +37,13 @@ function HomePage() {
                             "nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,\n" +
                             "tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,\n" +
                             "!"}
+                        phonetics={"/what'/"}
+                        partOfSpeech={"verb"}
+                        synonyms={"okay"}
+                        antonyms={"what"}
+
                     />
-                    <div>
-
-                    </div>
                 </div>
-
             </div>
         </div>
 

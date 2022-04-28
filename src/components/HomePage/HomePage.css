@@ -1,8 +1,14 @@
-.homepage-nav-bar{
+.homepage-nav-bar {
     background-color: #54BAB9;
     padding-top: 15px;
 }
-.home-page-logo{
+
+.home-page-logo {
     margin: 0;
     color: #576072;
 }
+
+.lower-container{
+    padding: 30px;
+}
+
