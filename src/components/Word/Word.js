@@ -4,7 +4,7 @@ import * as FaIcons from "react-icons/fa"
 import PartOfSpeechButton from "../PartOfSpeechButton/PartOfSpeechButton"
 
 function Word(props) {
-    const {date, meaning, word, phonetics,synonyms, antonyms, partOfSpeechName,handleClick} = props
+    const {date, meaning, word, phonetics,synonyms, antonyms,handleClick} = props
     return (
         <div className="word-container">
             <h1 className="word-heading">

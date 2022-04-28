@@ -1,25 +1,28 @@
-import React from "react"
+import React, {useState} from "react"
 import "./HomePage.css"
 import Search from "../Search/Search.js";
 import Word from "../Word/Word";
 
 
 function HomePage() {
-    const handleChange = () => {
-        console.log("okay")
+    const [value, setValue] = useState("")
+    
+    const handleChange = (e) => {
+         setValue(e.target.value)
     }
+
     const handleSearch = () => {
-        console.log("okay")
+        console.log(value)
     }
 
     return (
         <div className="homepage">
             <div className="homepage-nav-bar">
-                <h1 className="home-page-logo">Home Page</h1>
+                <h1 className="home-page-logo">Dictionary</h1>
             </div>
             <div>
                 <Search
-                    // value={"what"}
+                    value={value}
                     handleChange={handleChange}
                     handleSearch={handleSearch}
                 />

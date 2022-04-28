@@ -7,7 +7,7 @@
 }
 .search-header{
     font-size: 40px;
-    color: #576072;
+    color: #06113C;
     margin-top: 0;
 }
 .search-input{
@@ -32,4 +32,9 @@
     color: #fff;
     font-size: 22px;
     cursor: pointer;
+}
+.search-button:hover{
+    background-color: #B9F8D3;
+    border: 5px solid #B9F8D3;
+    color: #576072;
 }
