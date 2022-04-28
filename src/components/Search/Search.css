@@ -3,7 +3,7 @@
     height: 150px;
     background-color: #54BAB9;
     text-align: center;
-    padding: 30px ;
+    padding: 30px 0;
 }
 .search-header{
     font-size: 40px;
@@ -20,13 +20,15 @@
     font-size: 22px;
     color: #576072;
     padding-left: 20px;
+    margin-right: 15px;
 }
 .search-button{
     height: 40px;
     width: 150px;
-    border: 5px solid #FBF8F1;
+    border: 5px solid #006778;
+    background-color: #006778;
     border-radius: 15px;
     outline: none;
-    color: #576072;
+    color: #fff;
     font-size: 22px;
 }

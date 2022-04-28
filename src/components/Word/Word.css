@@ -1,0 +1,8 @@
+.word-container{
+    width: 50%;
+    height: 800px;
+    /*background-color: #43919B;*/
+}
+.word-heading{
+    margin-top: 0;
+}
