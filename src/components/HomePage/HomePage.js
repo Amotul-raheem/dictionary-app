@@ -16,15 +16,16 @@ function HomePage() {
     const [searchWord, setSearchWord] = useState("")
     const [isRandom, setIsRandom] = useState(true)
     const [suggestedWords, setSuggestedWords] = useState([])
+    const [isDropDownOpen, setIsDropDownOpen] = useState(false)
     // const [success, setSuccess] = useState(true)
     const [wordOfTheDayResult, setWordOfTheDAyResult] = useState({})
 
 
-    useEffect( () => {
-        try{
+    useEffect(() => {
+        try {
             getRandomWord()
             setIsRandom(true)
-        }catch(e){
+        } catch (e) {
             console.log(e.response)
         }
     }, [])
@@ -38,6 +39,7 @@ function HomePage() {
 
     const getResult = async () => {
         const response = await axios.get(wordUrl + searchWord)
+        console.log(response)
     }
 
     const getSuggestedWords = async () => {
@@ -45,18 +47,29 @@ function HomePage() {
         const result = (response.data)
         setSuggestedWords(result)
     }
+    const handleKeyPress = async (e) => {
+        if (e.keyCode === 13) {
+            setSearchWord(e.target.value)
+            await getResult()
+            console.log(searchWord)
+        }
+    }
 
     const handleChange = async (e) => {
         setSearchWord(e.target.value)
         await getSuggestedWords()
     }
-
-    const handleSearch = () => {
-        console.log(searchWord)
+    const toggleDropDown = () => {
+        setIsDropDownOpen(!isDropDownOpen)
+    }
+    const closeDropDown = () => {
+        if(isDropDownOpen){
+            toggleDropDown()
+        }
     }
 
     return (
-        <div className="homepage">
+        <div onClick={closeDropDown} className="homepage">
             <div className="homepage-nav-bar">
                 <h1 className="home-page-logo">Dictionary</h1>
             </div>
@@ -65,17 +78,19 @@ function HomePage() {
                     value={searchWord}
                     handleChange={handleChange}
                     suggestedWords={suggestedWords}
-                    isDropDownOpen={true}
+                    isDropDownOpen={isDropDownOpen}
+                    onCLick={toggleDropDown}
+                    handleKeyPress={handleKeyPress}
                 />
             </div>
-            {/*<div className="">*/}
-            {/*    <RandomWord*/}
-            {/*        date={today}*/}
-            {/*        word={wordOfTheDayResult.word}*/}
-            {/*        meaning={wordOfTheDayResult.definition}*/}
-            {/*        phonetics={wordOfTheDayResult.pronunciation}*/}
-            {/*    />*/}
-            {/*</div>*/}
+            <div className="">
+                <RandomWord
+                    date={today}
+                    word={wordOfTheDayResult.word}
+                    meaning={wordOfTheDayResult.definition}
+                    phonetics={wordOfTheDayResult.pronunciation}
+                />
+            </div>
         </div>
 
 
