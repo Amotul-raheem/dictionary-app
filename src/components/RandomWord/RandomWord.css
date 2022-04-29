@@ -1,0 +1,36 @@
+.random-word{
+    display: flex;
+    justify-content: center;
+}
+.random-word-container{
+    text-align: center;
+    /*height: 600px;*/
+    width: 600px;
+    padding: 80px;
+}
+.random-word h1{
+    color: #06113C ;
+    font-size: 35px;
+    font-style: italic;
+}
+.word-body{
+    text-align: left;
+    color: #006778;
+    padding-top: 10px;
+}
+.random-word h2{
+    font-size: 30px;
+}
+.date{
+    font-size: 25px;
+    font-style: italic;
+    font-weight: normal;
+    color: #006778;
+    margin-top: 0;
+}
+
+.random-word p{
+    font-size: 24px;
+    text-align: left;
+    color: #006778;
+}
