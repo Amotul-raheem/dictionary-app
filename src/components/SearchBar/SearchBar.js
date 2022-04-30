@@ -2,15 +2,25 @@ import React, {useState} from "react"
 import "./SearchBar.css"
 import * as FaIcons from "react-icons/fa"
 import DropDown from "../DropDown/DropDown"
+import {isArrayEmpty} from "../Utils/WordUtil"
 
 function SearchBar(props) {
-    const {value, handleChange, suggestedWords, handleWordClick, isDropDownOpen, selectedWord, onClick, handleKeyPress} = props
+    const {
+        value,
+        handleChange,
+        suggestedWords,
+        handleWordClick,
+        isDropDownOpen,
+        selectedWord,
+        onClick,
+        handleKeyPress
+    } = props
     return (
 
         <div className="search-container">
             <h1 className="search-header">Search a word</h1>
             <div className="search-input-container">
-               <i><FaIcons.FaSearch/> </i>
+                <i><FaIcons.FaSearch/> </i>
                 <input
                     className="search-input"
                     placeholder="search a word"
@@ -20,7 +30,7 @@ function SearchBar(props) {
                     onKeyDown={handleKeyPress}
                 />
             </div>
-                <div className={`dropdown-body ${isDropDownOpen && 'open'}`}>
+            {!isArrayEmpty(suggestedWords) && <div className={`dropdown-body ${isDropDownOpen && 'open'}`}>
                 {suggestedWords.map(item => (
                     <div key={item.score} className="dropdown-item"
                          onClick={handleWordClick}
@@ -29,7 +39,7 @@ function SearchBar(props) {
                         {item.word}
                     </div>
                 ))}
-            </div>
+            </div>}
 
 
         </div>
