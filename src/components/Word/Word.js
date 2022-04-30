@@ -4,31 +4,41 @@ import * as FaIcons from "react-icons/fa"
 import PartOfSpeechButton from "../PartOfSpeechButton/PartOfSpeechButton"
 
 function Word(props) {
-    const { meaning, word, phonetics,synonyms, antonyms,handleClick,partOfSpeeches, handleVolumeClick} = props
+    const {meanings, word, phonetics, } = props
+    console.log(phonetics)
+    const handleVolumeClick = () => {
+        const audio = new Audio(phonetics.phoneticSound);
+        audio.play()
+    }
     return (
         <div className="word-container">
             <h1>{word}</h1>
-            {phonetics.map( phonetic => (
-                <span> {phonetic.text}, </span>
-            ))}
-            <i className="volume-icon">
-                <FaIcons.FaVolumeUp
-                    onClick={handleVolumeClick}
-                />
-            </i>
+                <span> {phonetics.phoneticTexts},  <i className="volume-icon"
+                   onClick={handleVolumeClick}>
+                <FaIcons.FaVolumeUp/>
+                </i>
+                </span>
+
             <h3>Part of Speech: </h3>
-            {partOfSpeeches.map(partOfSpeech => (
-                <PartOfSpeechButton
-                    handleClick={handleClick}
-                    partOfSpeechName={partOfSpeech.name}
-                />
+            {meanings.map(meaning => (
+                <div>
+                    <h2>Part of speech: {meaning.partOfSpeech}</h2>
+                    <h3>Definitions:</h3>
+                    {meaning.definitions.map(definition => (
+                        <div>
+                            <p>{definition.definition}</p>
+                            <p>synonyms:{definition.synonyms}</p>
+                            <p>Antonyms: {definition.antonyms} </p>
+                        </div>
+
+                    ))}
+                    <p>Synonyms: {meaning.synonyms}</p>
+                    <p>Antonyms: {meaning.antonyms}</p>
+                </div>
+
             ))}
 
-            <h3>Definitions</h3>
-            <p>{meaning}</p>
-            <p>Synonyms: {synonyms}</p>
-            <p>Antonyms: {antonyms}</p>
-            
+
         </div>
     )
 }

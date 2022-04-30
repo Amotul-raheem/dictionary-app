@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import "./HomePage.css"
 import SearchBar from "../SearchBar/SearchBar"
 import RandomWord from "../RandomWord/RandomWord"
-import {filterWordResult} from "../Utils/WordUtil"
+import {filterWordResult, getPronunciation} from "../Utils/WordUtil"
 import Word from "../Word/Word";
 import axios from "axios";
 import moment from "moment";
@@ -13,13 +13,13 @@ function HomePage() {
     const wordUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/"
     const randomWordUrl = "https://random-words-api.vercel.app/word"
     const suggestedWordsUrl = "https://api.datamuse.com/sug?s="
-
     const [searchWord, setSearchWord] = useState("")
     const [suggestedWords, setSuggestedWords] = useState([])
     const [isDropDownOpen, setIsDropDownOpen] = useState(false)
     const [isRandom, setIsRandom] = useState(true)
     const [wordOfTheDayResult, setWordOfTheDAyResult] = useState({})
     const [searchedWordResult, setSearchedWordResult] = useState({})
+
 
 
     useEffect(() => {
@@ -31,11 +31,15 @@ function HomePage() {
         }
     }, [])
 
-
     const getRandomWord = async () => {
         const response = await axios.get(randomWordUrl)
         const result = response.data[0]
         setWordOfTheDAyResult(result)
+    }
+    const getSuggestedWords = async (searchValue) => {
+        const response = await axios.get(suggestedWordsUrl + searchValue)
+        const result = (response.data)
+        setSuggestedWords(result)
     }
 
     const getSearchedWordResult = async (searchValue) => {
@@ -45,11 +49,7 @@ function HomePage() {
         setSearchedWordResult(filteredResult)
     }
 
-    const getSuggestedWords = async (searchValue) => {
-        const response = await axios.get(suggestedWordsUrl + searchValue)
-        const result = (response.data)
-        setSuggestedWords(result)
-    }
+
     const handleEnterKeyPress = async (e) => {
         if (e.keyCode === 13) {
             const searchWord = e.target.value
@@ -65,7 +65,6 @@ function HomePage() {
         let selectedWord = suggestedWords.find(word => word.score == id)
         setSearchWord(selectedWord.word)
         await getSearchedWordResult(selectedWord.word)
-        console.log(searchedWordResult)
         setIsRandom(false)
     }
 
@@ -91,10 +90,6 @@ function HomePage() {
             toggleDropDown()
         }
     }
-    const handleVolumeClick = (url) => {
-        new Audio(url).play();
-    }
-
 
     return (
         <div onClick={closeDropDown} className="homepage">
@@ -121,7 +116,7 @@ function HomePage() {
                 /> : <Word
                     word={searchedWordResult.word}
                     phonetics={searchedWordResult.phonetics}
-                    handleVolumeClick={handleVolumeClick}
+                    meanings={searchedWordResult.meanings}
                 />}
 
 
