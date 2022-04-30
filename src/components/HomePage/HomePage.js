@@ -56,7 +56,6 @@ function HomePage() {
             setSearchWord(searchWord)
             closeDropDown()
             await getSearchedWordResult(searchWord)
-            console.log(searchedWordResult)
             setIsRandom(false)
         }
     }

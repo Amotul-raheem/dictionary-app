@@ -5,7 +5,8 @@ export const filterWordResult = (result) => {
     let meanings = result.meanings
     newResult.word = word
     newResult.phonetics = transformPhonetics(phonetics)
-    newResult.meanings = meanings
+    newResult.meanings = transformMeanings(meanings)
+    console.log(newResult)
     return newResult
 }
 export function isValidURL(string) {
@@ -34,7 +35,16 @@ const transformPhonetics = (phonetics) => {
 
 }
 
+const transformMeanings = (meanings) => {
+    return meanings.reduce((accum, meaning) => {
+        let partOfSpeech = meaning.partOfSpeech
+        if (partOfSpeech in accum){
+            accum[partOfSpeech] = accum[partOfSpeech].push(meaning)
+        }else {
+            accum[partOfSpeech]= [meaning]
+        }
+        return accum
+    }, {})
+}
 
-
-    
 
