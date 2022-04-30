@@ -5,14 +5,12 @@ import RandomWord from "../RandomWord/RandomWord"
 import {filterWordResult} from "../Utils/WordUtil"
 import Word from "../Word/Word";
 import axios from "axios";
-import moment from "moment";
+import {today} from "../Utils/DateUtils"
+import {wordUrl,randomWordUrl, suggestedWordsUrl} from "../Constants/Urls"
 
 
 function HomePage() {
-    const today = moment(new Date()).format("MMM Do YYYY")
-    const wordUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/"
-    const randomWordUrl = "https://random-words-api.vercel.app/word"
-    const suggestedWordsUrl = "https://api.datamuse.com/sug?s="
+    
     const [searchWord, setSearchWord] = useState("")
     const [suggestedWords, setSuggestedWords] = useState([])
     const [isDropDownOpen, setIsDropDownOpen] = useState(false)
@@ -20,12 +18,9 @@ function HomePage() {
     const [wordOfTheDayResult, setWordOfTheDAyResult] = useState({})
     const [searchedWordResult, setSearchedWordResult] = useState({})
 
-
-
     useEffect(() => {
         try {
             getRandomWord()
-
         } catch (e) {
             console.log(e.response)
         }
@@ -48,7 +43,6 @@ function HomePage() {
         const filteredResult = filterWordResult(WordResult)
         setSearchedWordResult(filteredResult)
     }
-
 
     const handleEnterKeyPress = async (e) => {
         if (e.keyCode === 13) {
@@ -121,8 +115,7 @@ function HomePage() {
 
             </div>
         </div>
-
-
+        
     )
 }
 
