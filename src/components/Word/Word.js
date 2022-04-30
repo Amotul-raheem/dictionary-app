@@ -4,19 +4,23 @@ import * as FaIcons from "react-icons/fa"
 import PartOfSpeechButton from "../PartOfSpeechButton/PartOfSpeechButton"
 
 function Word(props) {
-    const { meaning, word, phonetics,synonyms, antonyms,handleClick} = props
+    const { meaning, word, phonetics,synonyms, antonyms,handleClick,partOfSpeeches, handleVolumeClick} = props
     return (
         <div className="word-container">
             <h1>{word}</h1>
             {phonetics.map( phonetic => (
                 <span> {phonetic.text}, </span>
             ))}
-            <FaIcons.FaVolumeUp/>
+            <i className="volume-icon">
+                <FaIcons.FaVolumeUp
+                    onClick={handleVolumeClick}
+                />
+            </i>
             <h3>Part of Speech: </h3>
             {partOfSpeeches.map(partOfSpeech => (
                 <PartOfSpeechButton
                     handleClick={handleClick}
-                    partOfSpeechName={"noun"}
+                    partOfSpeechName={partOfSpeech.name}
                 />
             ))}
 

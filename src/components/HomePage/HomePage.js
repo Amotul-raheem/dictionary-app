@@ -3,7 +3,7 @@ import "./HomePage.css"
 import SearchBar from "../SearchBar/SearchBar"
 import RandomWord from "../RandomWord/RandomWord"
 import {filterWordResult} from "../Utils/WordUtil"
-// import Word from "../Word/Word";
+import Word from "../Word/Word";
 import axios from "axios";
 import moment from "moment";
 
@@ -17,13 +17,15 @@ function HomePage() {
     const [searchWord, setSearchWord] = useState("")
     const [suggestedWords, setSuggestedWords] = useState([])
     const [isDropDownOpen, setIsDropDownOpen] = useState(false)
+    const [isRandom, setIsRandom] = useState(true)
     const [wordOfTheDayResult, setWordOfTheDAyResult] = useState({})
-    const [searchedWordResult, setSearchedWordResult] = useState("")
+    const [searchedWordResult, setSearchedWordResult] = useState({})
 
 
     useEffect(() => {
         try {
             getRandomWord()
+
         } catch (e) {
             console.log(e.response)
         }
@@ -39,7 +41,8 @@ function HomePage() {
     const getSearchedWordResult = async (searchValue) => {
         const response = await axios.get(wordUrl + searchValue)
         const WordResult = response.data[0]
-        setSearchedWordResult(filterWordResult(WordResult))
+        const filteredResult = filterWordResult(WordResult)
+        setSearchedWordResult(filteredResult)
     }
 
     const getSuggestedWords = async (searchValue) => {
@@ -54,6 +57,7 @@ function HomePage() {
             closeDropDown()
             await getSearchedWordResult(searchWord)
             console.log(searchedWordResult)
+            setIsRandom(false)
         }
     }
     const handleSuggestedWordClick = async (e) => {
@@ -62,6 +66,7 @@ function HomePage() {
         setSearchWord(selectedWord.word)
         await getSearchedWordResult(selectedWord.word)
         console.log(searchedWordResult)
+        setIsRandom(false)
     }
 
     const handleChange = async (e) => {
@@ -86,6 +91,9 @@ function HomePage() {
             toggleDropDown()
         }
     }
+    const handleVolumeClick = (url) => {
+        new Audio(url).play();
+    }
 
 
     return (
@@ -105,12 +113,18 @@ function HomePage() {
                 />
             </div>
             <div className="">
-                <RandomWord
+                {isRandom ? <RandomWord
                     date={today}
                     word={wordOfTheDayResult.word}
                     meaning={wordOfTheDayResult.definition}
                     phonetics={wordOfTheDayResult.pronunciation}
-                />
+                /> : <Word
+                    word={searchedWordResult.word}
+                    phonetics={searchedWordResult.phonetics}
+                    handleVolumeClick={handleVolumeClick}
+                />}
+
+
             </div>
         </div>
 

@@ -3,7 +3,7 @@ import "./RandomWord.css"
 import * as FaIcons from "react-icons/fa"
 
 function RandomWord(props){
-    const {phonetics,meaning,date, word} = props
+    const {phonetics,meaning,date, word, handleVolumeClick} = props
     return(
         <div className="random-word">
             <div className="random-word-container">
@@ -11,7 +11,7 @@ function RandomWord(props){
                 <h2 className="date">{date}</h2>
                 <div className="word-body">
                 <h2>{word}</h2>
-                <span className="pronunciation"> /{phonetics}/ <FaIcons.FaVolumeUp/> </span>
+                <span className="pronunciation"> /{phonetics}/</span>
                 <h2 className="definition-heading">Definition:</h2>
                 <p className="defininition-body">{meaning}</p>
                 </div>

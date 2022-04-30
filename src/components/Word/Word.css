@@ -5,3 +5,6 @@
 .word-heading{
     /*margin-top: 0;*/
 }
+.volume-icon{
+    cursor: pointer;
+}
