@@ -7,21 +7,19 @@ function Word(props) {
     const { meaning, word, phonetics,synonyms, antonyms,handleClick} = props
     return (
         <div className="word-container">
-            <h2>{word}</h2>
-            <span>{phonetics}, </span><span>{phonetics} </span><FaIcons.FaVolumeUp/>
+            <h1>{word}</h1>
+            {phonetics.map( phonetic => (
+                <span> {phonetic.text}, </span>
+            ))}
+            <FaIcons.FaVolumeUp/>
             <h3>Part of Speech: </h3>
-            <PartOfSpeechButton
-                handleClick={handleClick}
-                partOfSpeechName={"noun"}
-            />
-            <PartOfSpeechButton
-                handleClick={handleClick}
-                partOfSpeechName={"verb"}
-            />
-            <PartOfSpeechButton
-                handleClick={handleClick}
-                partOfSpeechName={"interjection"}
-            />
+            {partOfSpeeches.map(partOfSpeech => (
+                <PartOfSpeechButton
+                    handleClick={handleClick}
+                    partOfSpeechName={"noun"}
+                />
+            ))}
+
             <h3>Definitions</h3>
             <p>{meaning}</p>
             <p>Synonyms: {synonyms}</p>

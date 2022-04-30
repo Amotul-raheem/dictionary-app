@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import "./SearchBar.css"
 import * as FaIcons from "react-icons/fa"
 import DropDown from "../DropDown/DropDown"
@@ -20,17 +20,17 @@ function SearchBar(props) {
                     onKeyDown={handleKeyPress}
                 />
             </div>
-            <div className={`dropdown-body ${isDropDownOpen && 'open'}`}>
+                <div className={`dropdown-body ${isDropDownOpen && 'open'}`}>
                 {suggestedWords.map(item => (
                     <div key={item.score} className="dropdown-item"
                          onClick={handleWordClick}
                          word={item.word}
-                         // onClick={e => handleWordClick(e.target.id)}
                          id={item.score}>
                         {item.word}
                     </div>
                 ))}
             </div>
+
 
         </div>
     )

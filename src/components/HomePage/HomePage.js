@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import "./HomePage.css"
 import SearchBar from "../SearchBar/SearchBar"
 import RandomWord from "../RandomWord/RandomWord"
+import {filterWordResult} from "../Utils/WordUtil"
 // import Word from "../Word/Word";
 import axios from "axios";
 import moment from "moment";
@@ -17,6 +18,7 @@ function HomePage() {
     const [suggestedWords, setSuggestedWords] = useState([])
     const [isDropDownOpen, setIsDropDownOpen] = useState(false)
     const [wordOfTheDayResult, setWordOfTheDAyResult] = useState({})
+    const [searchedWordResult, setSearchedWordResult] = useState("")
 
 
     useEffect(() => {
@@ -35,10 +37,9 @@ function HomePage() {
     }
 
     const getSearchedWordResult = async (searchValue) => {
-        console.log(searchValue)
         const response = await axios.get(wordUrl + searchValue)
-        console.log(wordUrl + searchValue)
-        console.log(response.data)
+        const WordResult = response.data[0]
+        setSearchedWordResult(filterWordResult(WordResult))
     }
 
     const getSuggestedWords = async (searchValue) => {
@@ -52,6 +53,7 @@ function HomePage() {
             setSearchWord(searchWord)
             closeDropDown()
             await getSearchedWordResult(searchWord)
+            console.log(searchedWordResult)
         }
     }
     const handleSuggestedWordClick = async (e) => {
@@ -59,6 +61,7 @@ function HomePage() {
         let selectedWord = suggestedWords.find(word => word.score == id)
         setSearchWord(selectedWord.word)
         await getSearchedWordResult(selectedWord.word)
+        console.log(searchedWordResult)
     }
 
     const handleChange = async (e) => {
@@ -68,8 +71,12 @@ function HomePage() {
 
     }
     const handleSearchClick = () => {
+        if (searchWord === "" ){
+            setSuggestedWords([])
+            closeDropDown()
+        }
         toggleDropDown()
-        setSuggestedWords([])
+
     }
     const toggleDropDown = () => {
         setIsDropDownOpen(!isDropDownOpen)
