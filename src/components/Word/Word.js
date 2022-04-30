@@ -26,19 +26,29 @@ const handleVolumeClick = () => {
                     <FaIcons.FaVolumeUp/>
                 </i>
                 </span>
-                {/*{meanings.map(meaning => (*/}
-                {/*    <div>*/}
-                {/*        <h2 className="part-of-speech-heading">Part of speech: {meaning.partOfSpeech}</h2>*/}
-                {/*        {meaning.definitions.map(definition =>*/}
-                {/*            (<Meaning*/}
-                {/*                definition={definition.definition}*/}
-                {/*                synonym={definition.synonym}*/}
-                {/*                antonym={definition.antonym}*/}
-                {/*                example={definition.example}*/}
-                {/*            />))}*/}
-                {/*<h4>Antonyms: {meaning.antonyms.map(antonym => (<span>{antonym}, </span>))}</h4>*/}
-                {/*<h4>Synonyms: {meaning.synonyms.map(synonym => (<span>{synonym}, </span>))}</h4>*/}
-            </div>
+                {meanings.map(meaning => (
+                    <div>
+                        <h2 className="part-of-speech-heading">Part of speech: {meaning.pos}</h2>
+                        {meaning.meaning.map( wordProperty => (
+                            <div>
+                                {wordProperty.definitions.map( definition => (
+                                    <Meaning
+                                        definition={definition.definition}
+                                        synonym={definition.synonym}
+                                        antonym={definition.antonym}
+                                        example={definition.example}
+                                    />
+                                ))}
+                            <h4>Antonyms: {wordProperty.antonyms.map(antonym => (<span>{antonym}, </span>))}</h4>
+                            <h4>Synonyms: {wordProperty.synonyms.map(synonym => (<span>{synonym}, </span>))}</h4>
+                            </div>
+                        ))}
+                    </div>))}
+
+
+
+
+             </div>
             {/*))}*/}
         </div>
     )

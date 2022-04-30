@@ -40,3 +40,7 @@ h4 span{
     font-weight: normal;
     color: black;
 }
+p span{
+    color: #006778;
+    font-weight: bold;
+}
