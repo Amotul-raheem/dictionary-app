@@ -16,6 +16,7 @@
 }
 
 .search-input {
+    width: 500px;
     outline: none;
     border: 10px solid #FBF8F1;
     background-color: #FBF8F1;
@@ -58,7 +59,7 @@
     display: none;
     text-align: left;
     background-color: #FBF8F1;
-    width: 600px;
+    width: 610px;
     z-index: 4;
 }
 

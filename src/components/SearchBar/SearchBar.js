@@ -16,7 +16,7 @@ function SearchBar(props) {
                     placeholder="search a word"
                     value={value}
                     onChange={handleChange}
-                    onClick={onclick}
+                    onClick={onClick}
                     onKeyDown={handleKeyPress}
                 />
             </div>
@@ -24,6 +24,8 @@ function SearchBar(props) {
                 {suggestedWords.map(item => (
                     <div key={item.score} className="dropdown-item"
                          onClick={handleWordClick}
+                         word={item.word}
+                         // onClick={e => handleWordClick(e.target.id)}
                          id={item.score}>
                         {item.word}
                     </div>

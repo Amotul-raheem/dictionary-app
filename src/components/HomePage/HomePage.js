@@ -14,17 +14,14 @@ function HomePage() {
     const suggestedWordsUrl = "https://api.datamuse.com/sug?s="
 
     const [searchWord, setSearchWord] = useState("")
-    const [isRandom, setIsRandom] = useState(true)
     const [suggestedWords, setSuggestedWords] = useState([])
     const [isDropDownOpen, setIsDropDownOpen] = useState(false)
-    // const [success, setSuccess] = useState(true)
     const [wordOfTheDayResult, setWordOfTheDAyResult] = useState({})
 
 
     useEffect(() => {
         try {
             getRandomWord()
-            setIsRandom(true)
         } catch (e) {
             console.log(e.response)
         }
@@ -37,36 +34,52 @@ function HomePage() {
         setWordOfTheDAyResult(result)
     }
 
-    const getResult = async () => {
-        const response = await axios.get(wordUrl + searchWord)
-        console.log(response)
+    const getSearchedWordResult = async (searchValue) => {
+        console.log(searchValue)
+        const response = await axios.get(wordUrl + searchValue)
+        console.log(wordUrl + searchValue)
+        console.log(response.data)
     }
 
-    const getSuggestedWords = async () => {
-        const response = await axios.get(suggestedWordsUrl + searchWord)
+    const getSuggestedWords = async (searchValue) => {
+        const response = await axios.get(suggestedWordsUrl + searchValue)
         const result = (response.data)
         setSuggestedWords(result)
     }
-    const handleKeyPress = async (e) => {
+    const handleEnterKeyPress = async (e) => {
         if (e.keyCode === 13) {
-            setSearchWord(e.target.value)
-            await getResult()
-            console.log(searchWord)
+            const searchWord = e.target.value
+            setSearchWord(searchWord)
+            closeDropDown()
+            await getSearchedWordResult(searchWord)
         }
+    }
+    const handleSuggestedWordClick = async (e) => {
+        const id = (e.target.id)
+        let selectedWord = suggestedWords.find(word => word.score == id)
+        setSearchWord(selectedWord.word)
+        await getSearchedWordResult(selectedWord.word)
     }
 
     const handleChange = async (e) => {
-        setSearchWord(e.target.value)
-        await getSuggestedWords()
+        const searchWord = e.target.value
+        setSearchWord(searchWord)
+        await getSuggestedWords(searchWord)
+
+    }
+    const handleSearchClick = () => {
+        toggleDropDown()
+        setSuggestedWords([])
     }
     const toggleDropDown = () => {
         setIsDropDownOpen(!isDropDownOpen)
     }
     const closeDropDown = () => {
-        if(isDropDownOpen){
+        if (isDropDownOpen) {
             toggleDropDown()
         }
     }
+
 
     return (
         <div onClick={closeDropDown} className="homepage">
@@ -79,8 +92,9 @@ function HomePage() {
                     handleChange={handleChange}
                     suggestedWords={suggestedWords}
                     isDropDownOpen={isDropDownOpen}
-                    onCLick={toggleDropDown}
-                    handleKeyPress={handleKeyPress}
+                    onClick={handleSearchClick}
+                    handleWordClick={handleSuggestedWordClick}
+                    handleKeyPress={handleEnterKeyPress}
                 />
             </div>
             <div className="">
