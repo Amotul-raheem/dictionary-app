@@ -1,4 +1,5 @@
 import React from "react";
+import "./Meaning.css"
 
 
 function Meaning(props) {
@@ -6,7 +7,9 @@ function Meaning(props) {
     return (
         <div className="meaning">
             <ul>
-                <li><span>{definition}</span>
+                <li>
+                    <h3>Meaning: </h3>
+                    <span>{definition}</span>
                     <p>synonyms: {synonyms}</p>
                     <p>Antonyms: {antonyms} </p>
                     <p>Example: {example}</p>

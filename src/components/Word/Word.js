@@ -5,7 +5,6 @@ import Meaning from "../Meaning/Meaning"
 
 function Word(props) {
     const {meanings, word, phonetics,} = props
-    console.log(meanings)
     const handleVolumeClick = () => {
         const audio = new Audio(phonetics.phoneticSound);
         audio.play()
@@ -13,30 +12,25 @@ function Word(props) {
     return (
         <div className="word">
             <div className="word-container">
-                <h1>{word}</h1>
-                <span> {phonetics.phoneticTexts},  
-                <i className="volume-icon"
+                <h1 className="word-heading">{word}</h1>
+                <span className="phonetic"> {phonetics.phoneticTexts}    <i className="volume-icon"
                    onClick={handleVolumeClick}>
                     <FaIcons.FaVolumeUp/>
                 </i>
-                </span>
-
+                </span> 
                 {meanings.map(meaning => (<div>
-                        <h2>Part of speech: {meaning.partOfSpeech}</h2>
-                        <h3>Definitions:</h3>
-                        {meaning.definitions.map(definition => (<Meaning
+                        <h2 className="part-of-speech-heading">Part of speech: {meaning.partOfSpeech}</h2>
+                        {meaning.definitions.map(definition => 
+                            (<Meaning
                             definition={definition.definition}
                             synonym={definition.synonym}
                             antonym={definition.antonym}
                             example={definition.example}
                         />))}
-                        <h4>Antonyms: {meaning.antonyms.map(antonym => (<span>{antonym}</span>))}</h4>
-                        <h4>Synonyms: {meaning.synonyms.map(synonym => (<span>{synonym}</span>))}</h4>
+                        <h4>Antonyms: {meaning.antonyms.map(antonym => (<span>{antonym}, </span>))}</h4>
+                        <h4>Synonyms: {meaning.synonyms.map(synonym => (<span>{synonym}, </span>))}</h4>
                     </div>
-
                 ))}
-
-
             </div>
         </div>
    )

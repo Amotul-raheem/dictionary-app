@@ -1,10 +1,42 @@
-.word-container{
+.word{
+    display: flex;
     /*width: 50%;*/
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+.word-container{
+    width: 45%;
 
 }
 .word-heading{
-    /*margin-top: 0;*/
+    color: #06113C ;
+    font-size: 35px;
+    font-style: italic;
+    text-align: center;
 }
 .volume-icon{
     cursor: pointer;
+    color: brown;
+    padding: 0 0 0 10px;
+    font-size: 24px;
+    margin-top: 5px;
+}
+.phonetic{
+    font-size: 24px;
+    font-style: italic;
+    color: #006778;
+}
+.part-of-speech-heading{
+    font-size: 30px;
+    color: #006778;
+
+}
+.word h4{
+    color: #006778;
+    font-size: 18px;
+}
+h4 span{
+    font-weight: normal;
+    color: black;
 }

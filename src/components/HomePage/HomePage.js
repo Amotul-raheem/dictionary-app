@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import "./HomePage.css"
 import SearchBar from "../SearchBar/SearchBar"
 import RandomWord from "../RandomWord/RandomWord"
-import {filterWordResult, getPronunciation} from "../Utils/WordUtil"
+import {filterWordResult} from "../Utils/WordUtil"
 import Word from "../Word/Word";
 import axios from "axios";
 import moment from "moment";

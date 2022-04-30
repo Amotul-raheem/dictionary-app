@@ -1,0 +1,12 @@
+.meaning{
+    padding-bottom: 20px;
+}
+.meaning h3{
+    display: inline-block;
+    font-size: 18px;
+    margin: 0 10px 7px 0;
+    font-style: italic;
+    color: #006778;
+}
+
+
