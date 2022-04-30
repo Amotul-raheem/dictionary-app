@@ -2,7 +2,6 @@ import React from "react";
 import "./Meaning.css"
 import {isEmpty} from "../Utils/WordUtil"
 
-
 function Meaning(props) {
     const {synonyms, antonyms, example, definition} = props
 

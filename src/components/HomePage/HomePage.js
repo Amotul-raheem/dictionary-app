@@ -2,12 +2,11 @@ import React, {useEffect, useState} from "react"
 import "./HomePage.css"
 import SearchBar from "../SearchBar/SearchBar"
 import RandomWord from "../RandomWord/RandomWord"
-import {filterWordResult} from "../Utils/WordUtil"
+import {filterWordResult,DefaultWordOfTheDay} from "../Utils/WordUtil"
 import Word from "../Word/Word";
 import axios from "axios";
 import {today} from "../Utils/DateUtils"
 import {wordUrl,randomWordUrl, suggestedWordsUrl} from "../Constants/Urls"
-
 
 function HomePage() {
     
@@ -17,6 +16,8 @@ function HomePage() {
     const [isRandom, setIsRandom] = useState(true)
     const [wordOfTheDayResult, setWordOfTheDAyResult] = useState({})
     const [searchedWordResult, setSearchedWordResult] = useState({})
+    const [isError, setIsError] =useState(false)
+    const [errorObject, setErrorObject] = useState({})
 
     useEffect(() => {
         try {
@@ -27,21 +28,35 @@ function HomePage() {
     }, [])
 
     const getRandomWord = async () => {
-        const response = await axios.get(randomWordUrl)
-        const result = response.data[0]
-        setWordOfTheDAyResult(result)
+        try{
+            const response = await axios.get(randomWordUrl)
+            const result = response.data[0]
+            setWordOfTheDAyResult(result) 
+        }catch (err){
+            console.log(err.response)
+            setWordOfTheDAyResult(DefaultWordOfTheDay)
+        }
     }
     const getSuggestedWords = async (searchValue) => {
-        const response = await axios.get(suggestedWordsUrl + searchValue)
-        const result = (response.data)
-        setSuggestedWords(result)
+        try{
+            const response = await axios.get(suggestedWordsUrl + searchValue)
+            const result = (response.data)
+            setSuggestedWords(result)
+        }catch (err){
+            console.log(err.response)
+        }
     }
 
     const getSearchedWordResult = async (searchValue) => {
-        const response = await axios.get(wordUrl + searchValue)
-        const WordResult = response.data[0]
-        const filteredResult = filterWordResult(WordResult)
-        setSearchedWordResult(filteredResult)
+        try{
+            const response = await axios.get(wordUrl + searchValue)
+            const WordResult = response.data[0]
+            const filteredResult = filterWordResult(WordResult)
+            setSearchedWordResult(filteredResult)
+        }catch (err){
+            setIsError(true)
+            setErrorObject(err.response.data)
+        }
     }
 
     const handleEnterKeyPress = async (e) => {
@@ -73,7 +88,6 @@ function HomePage() {
             closeDropDown()
         }
         toggleDropDown()
-
     }
     const toggleDropDown = () => {
         setIsDropDownOpen(!isDropDownOpen)
@@ -83,7 +97,6 @@ function HomePage() {
             toggleDropDown()
         }
     }
-
     return (
         <div onClick={closeDropDown} className="homepage">
             <div className="homepage-nav-bar">
@@ -111,11 +124,13 @@ function HomePage() {
                     phonetics={searchedWordResult.phonetics}
                     meanings={searchedWordResult.meanings}
                 />}
-
-
+                {isError && <div className="error-container">
+                    <h1>{errorObject.title}</h1>
+                    <p>{errorObject.message}</p>
+                    <p>{errorObject.resolution}</p>
+                </div>}
             </div>
         </div>
-        
     )
 }
 

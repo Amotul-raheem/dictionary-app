@@ -9,16 +9,17 @@ export const filterWordResult = (result) => {
     return newResult
 }
 
-export function isValidURL(string) {
+export const isValidURL = (string) => {
     var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
     return (res !== null)
 };
 
-
-export function isEmpty(str) {
+export const isEmpty = (str) => {
     return (!str || str.length === 0);
 }
-
+export const isArrayEmpty = (arr) => {
+    return (arr.length === 0)
+}
 const transformPhonetics = (phonetics) => {
     const initialAccum = {phoneticTexts: "", phoneticSound: ""}
 
@@ -53,4 +54,9 @@ const transformMeanings = (meanings) => {
     return result
 }
 
+export const DefaultWordOfTheDay = {
+    word: "Ubiquitus",
+    definition: "Appearing to be everywhere at once; being or seeming to be in more than one location at the same time.",
+    pronunciation: "juːˈbɪk.wə.təs"
 
+}
