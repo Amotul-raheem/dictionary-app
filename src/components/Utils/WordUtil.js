@@ -25,7 +25,7 @@ const transformPhonetics = (phonetics) => {
 
     return phonetics.reduce((accum, phonetic) => {
         if (!isEmpty(phonetic.text)) {
-            accum.phoneticTexts = accum.phoneticTexts + ", " + phonetic.text
+            accum.phoneticTexts = accum.phoneticTexts  + phonetic.text + ", "
         }
         if (isValidURL(phonetic.audio)) {
             accum.phoneticSound = phonetic.audio
